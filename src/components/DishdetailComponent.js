@@ -12,7 +12,7 @@ class DishDetail extends Component {
             return (
                 <div className="col-12 col-md-5 m-1">
                     <Card>
-                        <CardImg top src={dish.image} alt={dish.name}/>
+                        <CardImg width="100%" src={dish.image} alt={dish.name}/>
                         <CardBody>
                             <CardTitle>{dish.name}</CardTitle>
                             <CardText>{dish.description}</CardText>
@@ -35,7 +35,11 @@ class DishDetail extends Component {
                         <p key={comment.id}>
                             {comment.comment}
                         </p>
-                        <p>-- {comment.author}, {comment.date}</p>
+                        <p>-- {comment.author}, {new Intl.DateTimeFormat('pt-BR', {
+                            year: "numeric",
+                            month: "short",
+                            day: "2-digit"
+                        }).format(new Date(Date.parse(comment.date)))}</p>
                     </div>
                 );
             });
@@ -43,9 +47,9 @@ class DishDetail extends Component {
             return (
                 <div className="col-12 col-md-5 m-1">
                     <h4>Comments</h4>
-                    <div>
+                    <ul className='list-unstyled'>
                         {listOfComments}
-                    </div>
+                    </ul>
                 </div>
             );
         } else {
@@ -65,9 +69,11 @@ class DishDetail extends Component {
         const dishComments = this.renderComments(dishInfo.comments);
 
         return (
-            <div className="row">
-                {dishItem}
-                {dishComments}
+            <div className="container">
+                <div className="row">
+                    {dishItem}
+                    {dishComments}
+                </div>
             </div>
         );
     }
